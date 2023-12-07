@@ -18,9 +18,6 @@ public class MenuOrder extends HttpServlet {
         String mainMenu = req.getParameter("mainMenu");
         String sideMenu = req.getParameter("sideMenu");
         String drinkMenu = req.getParameter("drinkMenu");
-        System.out.println(mainMenu);
-        System.out.println(sideMenu);
-        System.out.println(drinkMenu);
 
         // 가격 계산하기
         int totalPrice = 0;
@@ -39,14 +36,13 @@ public class MenuOrder extends HttpServlet {
             case "커피" : totalPrice += 1500; break;
             case "밀크쉐이크" : totalPrice += 2500; break;
         }
-//        System.out.println(totalPrice);
 
-        // 가격 저장하기
+        // java에서 생성한 데이터를 jsp로 전달하기위해서, req객체에 setAttribute에 저장
         req.setAttribute("totalPrice", Integer.toString(totalPrice));
 
+        // view단으로 forwarding jsp 경로 지정
         RequestDispatcher reqDispatcher
                 = req.getRequestDispatcher("/WEB-INF/views/menuEnd.jsp");
         reqDispatcher.forward(req, resp);
-
     }
 }

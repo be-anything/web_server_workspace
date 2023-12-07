@@ -61,6 +61,7 @@
 </table>
 <br /><br />
 
+<%-- action ${pageContext.request.contextPath}/meunOrder.do --%>
 <form name="menuFrm" action="/menu/menuOrder.do" method="post">
     <label for="mainMenu">메인메뉴 :</label>
     <select id="mainMenu" name="mainMenu" required>

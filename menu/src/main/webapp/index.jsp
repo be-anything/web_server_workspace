@@ -11,6 +11,9 @@
 </head>
 <body>
     <h1>Menu</h1>
-
+    <%--  client요청(절대주소)시 context-path(/menu)부터 시작해야한다.  --%>
+    <%--  context-path 이후 주소를 src/main/webapp 웹루트 하위에서 찾는다. --%>
+    <a href="/menu/menu.jsp">주문</a>
+    <%--  src/main/webapp/menu.jsp  --%>
 </body>
 </html>
