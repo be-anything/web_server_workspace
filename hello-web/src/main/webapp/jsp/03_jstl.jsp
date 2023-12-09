@@ -65,10 +65,11 @@
         </thead>
         <tbody>
             <%--
-                vs.index : 0-based index
-                vs.count : 1-based index
-                vs.first : 첫번째 요소 여부
-                vs.last : 마지막 요소 여부
+                varStatus 반복상태를 관리하는 객체 이름 지정
+                - vs.index : int 0-based index
+                - vs.count : int 1-based index
+                - vs.first : boolean 첫번째 요소 여부
+                - vs.last : boolean 마지막 요소 여부
             --%>
             <c:forEach items="${hobbies}" var="h" varStatus="vs">
                 <tr>
@@ -93,20 +94,7 @@
     <h2>fmt</h2>
 <%--    https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html--%>
 <%--    https://docs.oracle.com/javase/8/docs/api/java/text/DecimalFormat.html--%>
-    <ul>
-        <li>
-            <fmt:formatNumber value="${no1}" pattern="#,###" /> <%-- 종료태그가 없을 때 / 필수 --%>
-        </li>
-        <li>
-            <fmt:formatNumber value="${no2}" pattern="#.#" /> <%-- 특정자리수까지 반올림처리 --%>
-        </li>
-        <li>
-            <fmt:formatDate value="${today}" pattern="yy/MM/dd(E) HH:mm:ss" />
-
-        </li>
-    </ul>
     <h2>functions</h2>
-<%--    https://docs.oracle.com/javaee/5/jstl/1.1/docs/tlddocs/fn/tld-summary.html--%>
     <ul>
         <li>${name}</li>
         <li>${fn:toUpperCase(name)}</li>
@@ -116,7 +104,23 @@
         <li>${fn:substring(name, 6, 8)}</li>
         <li>${fn:replace(name, 'gil','길')}</li>
     </ul>
+    <%--    https://docs.oracle.com/javaee/5/jstl/1.1/docs/tlddocs/fn/tld-summary.html--%>
 
+    <ul>
+        <li>
+            <fmt:formatNumber value="${no1}" pattern="#,###" /> <%-- 종료태그가 없을 때 / 필수 --%>
+        </li>
+        <li>
+        <%-- # 해당 자리수가 없으면 공란처리 --%>
+        <%-- 0 해당 자리수가 없으면 0 처리 --%>
+            <fmt:formatNumber value="${no2}" pattern="#.#" /> <%-- 특정자리수까지 반올림처리 --%>
+            <fmt:formatNumber value="${no2}" pattern="#.000" /> <%-- 특정자리수까지 반올림처리 --%>
+        </li>
+        <li>
+            <fmt:formatDate value="${today}" pattern="yy/MM/dd(E) HH:mm:ss" />
+
+        </li>
+    </ul>
     <br><br><br><br><br><br><br><br><br><br>
 </body>
 </html>
