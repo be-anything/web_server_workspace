@@ -41,3 +41,8 @@ values('admin','1234','관리자','A','M', to_date('19971020','yyyymmdd'), 'admi
 
 select * from member;
 commit;
+
+
+
+
+
