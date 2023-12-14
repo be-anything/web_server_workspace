@@ -1,5 +1,6 @@
 package com.sh.mvc.member.controller;
 
+import com.sh.mvc.common.HelloMvcUtils;
 import com.sh.mvc.member.model.entity.Gender;
 import com.sh.mvc.member.model.entity.Member;
 import com.sh.mvc.member.model.entity.Role;
@@ -28,12 +29,12 @@ public class MemberRegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1. 인코딩 처리
-        req.setCharacterEncoding("utf-8");
+//        req.setCharacterEncoding("utf-8");
 
         // 2. 사용자입력값 가져오기
         // id, password, name, birthday, email, phone, gender, hobby
         String id = req.getParameter("id");
-        String password = req.getParameter("password");
+        String password = HelloMvcUtils.getEncryptedPassword(req.getParameter("password"), id);
         String name = req.getParameter("name");
         String _birthday = req.getParameter("birthday");
         String email = req.getParameter("email");
@@ -42,7 +43,7 @@ public class MemberRegisterServlet extends HttpServlet {
         String[] _hobby = req.getParameterValues("hobby");
         System.out.println(id + password + name + _birthday + email + phone + _gender + _hobby);
 
-        LocalDate birthday = _birthday != null ?
+        LocalDate birthday = _birthday != null && !"".equals(_birthday) ?
                                 LocalDate.parse(_birthday, DateTimeFormatter.ISO_DATE) :
                                         null;
         Gender gender = _gender != null ? Gender.valueOf(_gender) : null;
@@ -57,6 +58,6 @@ public class MemberRegisterServlet extends HttpServlet {
         req.getSession().setAttribute("msg", "✨✨ 회원가입 축하드립니다.🎉🎉");
 
         // 4. view(forward) | redirect
-        resp.sendRedirect(req.getContextPath());
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 }

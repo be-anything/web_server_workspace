@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.sh.mvc.member.model.entity.Role" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -14,7 +15,7 @@
     <script src="${pageContext.request.contextPath}/js/tailwind.config.js"></script>
     <script>
         <c:if test="${msg != null}">
-            alert("${msg}");
+            alert(`${msg}`); // 여러줄 입력이 가능하도록 ``(백틱)으로 감싸야한다.
             <%-- session속성 msg 제거해서 1회만 출력되도록 한다. --%>
             <c:remove var="msg" scope="session" />
         </c:if>
@@ -56,6 +57,13 @@
                         <li>
                             <a href="#" class="text-gray-900 hover:underline">Post</a>
                         </li>
+                        <%-- 관리자로 로그인한 경우만 노출하기 --%>
+                        <%--<c:if test="${loginMember.role == 'A'}">--%>
+                        <c:if test="${loginMember.role == Role.A}">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/memberList" class="text-gray-900 hover:underline">Admin-Member</a>
+                            </li>
+                        </c:if>
                     </ul>
                 </div>
             </div>

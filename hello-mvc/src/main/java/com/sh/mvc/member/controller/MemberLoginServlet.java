@@ -1,5 +1,6 @@
 package com.sh.mvc.member.controller;
 
+import com.sh.mvc.common.HelloMvcUtils;
 import com.sh.mvc.member.model.entity.Member;
 import com.sh.mvc.member.model.service.MemberService;
 
@@ -61,12 +62,13 @@ public class MemberLoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         // 1. 사용자 입력값 인코딩 처리
-        req.setCharacterEncoding("utf-8");
+//        req.setCharacterEncoding("utf-8");
 
         // 2. 사용자 입력값 가져오기
         String id = req.getParameter("id");
-        String password = req.getParameter("password");
-        System.out.println(id + ", " + password);
+        String password = HelloMvcUtils.getEncryptedPassword(req.getParameter("password"), id);
+        String _saveId = req.getParameter("saveId.checked");
+        System.out.println(id + ", " + password + _saveId);
 
         // 3. 업무로직 (이번 요청에 처리할 작업) -> 로그인(인증)
         // id/password - db에서 읽어온 데이터(member객체)와 비교
@@ -74,22 +76,28 @@ public class MemberLoginServlet extends HttpServlet {
         // 로그인 실패 (존재하지 않는 id | password가 틀린 경우)
         Member member = memberService.findById(id);
         System.out.println(member);
+        
+        // session이 있으면 가져오고, 없으면 생성하도록 하는 코드
+        // getSession() = getSession(true) : 세션이 존재하지 않으면 생성, 혹은 존재하는 세션을 반환
         HttpSession session = req.getSession();
-
         if(member != null && password.equals(member.getPassword())) {
             // 로그인 성공
             // 이번 요청이 끝나면 req가 폐기되기 때문에 한번 로그인 후 화면이동시 로그아웃처리된다.
             // pageContext, request, session, application 컨텍스트 객체 중 login처리에 적합한 것을 session
             // session객체는 사용자가 서버 첫 접속부터 세션 해제시까지 유효
             session.setAttribute("loginMember", member);
+            resp.sendRedirect(req.getContextPath() + "/");
         }
         else {
             // 로그인 실패
             session.setAttribute("msg", "아이디가 존재하지 않거나, 비밀번호가 틀립니다 😅");
+            resp.sendRedirect(req.getContextPath() + "/member/memberLogin");
+            // GET 방식으로 다시 요청을 보내는 것
+            // redirect는 get방식임
         }
 
         // 4. view단처리 (forwarding) | redirect 처리 (url변경)
         // DML요청(POST), 로그인요청등은 반드시 redirect로 처리해서 url을 변경해야한다.
-        resp.sendRedirect(req.getContextPath());
+//        resp.sendRedirect(req.getContextPath() + "/");
     }
 }

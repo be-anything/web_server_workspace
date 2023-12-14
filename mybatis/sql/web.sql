@@ -23,10 +23,14 @@ create table member (
                         point number default 1000,
                         reg_date date default sysdate,
                         constraints pk_member_id primary key(id),
+                        constraints uq_member_email unique(email),
                         constraints ck_member_gender check(gender in ('M', 'F')),
                         constraints ck_member_role check(role in ('U', 'A')),
                         constraints ck_member_point check(point >= 0)
 );
+alter table member
+add constraints uq_member_email unique(email);
+
 
 insert into member
 values('abcde','1234','아무개','U','M', to_date('20000909','yyyymmdd'), 'abcde@naver.com', '01012340909', '운동,등산,독서', default, default);
@@ -39,10 +43,16 @@ insert into member
 values('admin','1234','관리자','A','M', to_date('19971020','yyyymmdd'), 'admin@naver.com', '01044441234', '게임,독서',default, default);
 
 
+
+
 select * from member;
 commit;
 
+--delete from member where id in ('leess', 'sejong');
 
+update member set password = 'XO7EnJKf1fu5zSVDaV6MXbw+5qzTjJ/MUQUwOU2LsBClr/awr3d9/WxJWt56AbV7R4nGgWltTaVVRbUJJLrN5Q==' where id = 'admin';
+update member set password = 'krHpYuIymBeh0nY1yX9kIerkVzSvqwleBoF5bLzeJCOqiIl2ENGog9sjUYMhfzoi2EWxcbi2zVZa/u5JX22y3A==' where id = 'qwerty';
+update member set password = 'o3R1sTc/jLBGvg/U43iwbMUjREQNWdHlcpCNV9sc2QyMK6ug8ySk2dcqkgGeGHWdM4080UhcgnNQJroyjoBViw==' where id = 'abcde';
 
 
 
