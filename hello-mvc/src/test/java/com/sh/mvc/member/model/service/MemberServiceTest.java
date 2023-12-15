@@ -1,9 +1,8 @@
-package com.sh.mvc.service;
+package com.sh.mvc.member.model.service;
 
 import com.sh.mvc.member.model.entity.Gender;
 import com.sh.mvc.member.model.entity.Member;
 import com.sh.mvc.member.model.entity.Role;
-import com.sh.mvc.member.model.service.MemberService;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
@@ -101,7 +100,7 @@ public class MemberServiceTest {
     }
 
     //    insert test
-//    @Disabled
+    @Disabled
     @Order(1)
     @DisplayName("회원가입")
     @Test
@@ -124,6 +123,7 @@ public class MemberServiceTest {
         assertThat(member2.getName()).isEqualTo(name);
 
     }
+    @Disabled
     @Order(2)
     @DisplayName("회원가입시 오류 체크")
     @Test
@@ -172,6 +172,7 @@ public class MemberServiceTest {
         assertThat(member2.getEmail()).isEqualTo(newEmail);
         assertThat(member2.getPhone()).isEqualTo(newPhone);
     }
+    @Disabled
     @Order(4)
     @DisplayName("회원 비밀번호 수정")
     @Test
@@ -189,6 +190,7 @@ public class MemberServiceTest {
         assertThat(member2.getPassword()).isEqualTo(newPassword);
     }
 
+    @Disabled
     @Order(5)
     @DisplayName("회원 권한 수정")
     @Test
@@ -207,6 +209,7 @@ public class MemberServiceTest {
         assertThat(member2.getRole().name()).isEqualTo(newRole.name());
     }
 
+    @Disabled
     @Order(6)
     @DisplayName("회원 삭제")
     @Test

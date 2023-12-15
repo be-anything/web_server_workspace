@@ -31,17 +31,22 @@ public class MemberUpdatePasswordServlet extends HttpServlet {
         String newPassowrd = HelloMvcUtils.getEncryptedPassword(req.getParameter("newPassword"), id);
 
         // 2. 업무로직
-        int result = 0;
+        String location = req.getContextPath();
+
         if(oldPassowrd.equals(loginMember.getPassword())) {
             loginMember.setPassword(newPassowrd);
-            result = memberService.updateMemberPassword(loginMember);
+            int result = memberService.updateMemberPassword(loginMember);
             session.setAttribute("msg", "비밀번호가 변경되었습니다. 😎");
+
+            // 3. 리다이렉트 - 문자열로 복합대입 연산자 사용 +=
+            location += "/member/memberDetail";
         }
         else {
             session.setAttribute("msg", "기존 비밀번호가 일치하지 않아 비밀번호 변경에 실패했습니다. 😎");
+            // 3. 리다이렉트
+            location += "/member/memberUpdatePassword";
         }
 
-        // 3. 리다이렉트
-        resp.sendRedirect(req.getContextPath() + "/member/memberDetail");
+        resp.sendRedirect(location);
     }
 }

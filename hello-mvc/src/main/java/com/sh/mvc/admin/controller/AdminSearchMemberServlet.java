@@ -1,5 +1,6 @@
 package com.sh.mvc.admin.controller;
 
+import com.sh.mvc.common.HelloMvcUtils;
 import com.sh.mvc.member.model.entity.Member;
 import com.sh.mvc.member.model.service.MemberService;
 
@@ -18,6 +19,7 @@ public class AdminSearchMemberServlet extends HttpServlet {
     private MemberService memberService = new MemberService();
 
     /**
+     * <pre>
      * mybatis에서는 식별자(컬럼명, 테이블명)를 동적으로 작성할 수 있다. ${식별자}
      * - (PreparedStatement에는 없음)
      *
@@ -32,17 +34,34 @@ public class AdminSearchMemberServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1. 사용자입력값 가져오기
+        int page = 1;
+        int limit = 10;
+        // ctrl + alt + t
+        try {
+            page = Integer.parseInt(req.getParameter("page"));
+        } catch (NumberFormatException ignore) {}
+
+
         String searchType = req.getParameter("search-type");
         String searchKeyword = req.getParameter("search-keyword");
         Map<String, Object> param = new HashMap<>();
         param.put("searchType", searchType);
         param.put("searchKeyword", searchKeyword);
+        param.put("page", page);
+        param.put("limit", limit);
         System.out.println(param);
 
         // 2. 업무로직
         // DB에서 데이터 가져오기
+        // content 영역
         List<Member> members = memberService.searchMember(param);
         req.setAttribute("members", members);
+
+        // pagebar 영역
+        int totalCount = memberService.getTotalCount(param); // 검색조건에 맞는 총 회원수
+        String url = req.getRequestURI() + "?search-type=" + searchType + "&search-keyword=" + searchKeyword;
+        String pagebar = HelloMvcUtils.getPagebar(page, limit, totalCount, url);
+        req.setAttribute("pagebar", pagebar);
 
         // 3. view단 처리
         req.getRequestDispatcher("/WEB-INF/views/admin/memberList.jsp").forward(req, resp);
