@@ -319,7 +319,83 @@ select * from attachment order by id desc;
 
 
 
+-- 한글 한글자당 3바이트로 작업
+-- 컨트롤러의 주소 -> servlet의 웹주소를 의미
+-- ()
+-- 패키지 이름 -> 클래스 이름 -> 웹 servlet 주소
+-- 전체 코드는 작성하지 않아도 무방
 
+
+
+
+
+-----------------------------------------------------------------ncs Test
+CREATE TABLE TB_USER(
+
+USER_NO NUMBER PRIMARY KEY,
+
+USER_ID VARCHAR2(50) UNIQUE NOT NULL,
+
+USER_NAME VARCHAR2(50) NOT NULL,
+
+USER_AGE NUMBER NOT NULL
+
+);
+
+CREATE SEQUENCE SEQ_UNO
+
+START WITH 1
+
+INCREMENT BY 1
+
+NOCACHE;
+
+INSERT INTO TB_USER VALUES(SEQ_UNO.NEXTVAL, 'gd_hong', '홍길동', 20);
+
+INSERT INTO TB_USER VALUES(SEQ_UNO.NEXTVAL, 'sh_han', '한소희', 28);
+
+INSERT INTO TB_USER VALUES(SEQ_UNO.NEXTVAL, 'jm_park', '지민', 27);
+
+COMMIT;
+
+select * from tb_user where user_no = 1;
+
+
+create table student (
+    student_number number primary key,
+    student_name varchar2(21) not null,
+    korean_score number not null,
+    english_score number not null,
+    math_score number not null
+);
+
+create sequence seq_student_number;
+
+create table manager(
+    manager_number number primary key,
+    manager_name varchar2(21) not null,
+    manager_hire_date varchar2(60) not null
+);
+create sequence seq_manager_number;
+
+
+CREATE TABLE tb_MEMBER(
+
+USER_NO NUMBER PRIMARY KEY,
+
+USER_ID VARCHAR2(20) NOT NULL,
+
+USER_PW VARCHAR2(20) NOT NULL,
+
+USER_NAME VARCHAR2(20) NOT NULL,
+
+USER_ADDR VARCHAR(50) NOT NULL,
+
+REG_DATE DATE DEFAULT SYSDATE
+
+);
+
+CREATE SEQUENCE SEQ_MEMBER;
 
 
 
