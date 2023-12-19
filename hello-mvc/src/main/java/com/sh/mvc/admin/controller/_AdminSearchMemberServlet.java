@@ -5,7 +5,6 @@ import com.sh.mvc.member.model.entity.Member;
 import com.sh.mvc.member.model.service.MemberService;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/admin/searchMember")
-public class AdminSearchMemberServlet extends HttpServlet {
+//@WebServlet("/admin/searchMember")
+public class _AdminSearchMemberServlet extends HttpServlet {
     private MemberService memberService = new MemberService();
 
     /**

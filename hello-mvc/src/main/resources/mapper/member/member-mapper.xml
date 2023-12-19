@@ -88,36 +88,50 @@
             id = #{id}
     </delete>
     <!--  식별자(컬럼, 테이블명) 작성시 ${}문법을 사용할 것  -->
-    <select id="searchMember" resultType="member">
-        select
-            *
-        from
-            member
-        where
-            ${searchType} like '%' || #{searchKeyword} || '%'
-    </select>
+<!--    <select id="searchMember" resultType="member">-->
+<!--        select-->
+<!--            *-->
+<!--        from-->
+<!--            member-->
+<!--        where-->
+<!--            ${searchType} like '%' || #{searchKeyword} || '%'-->
+<!--    </select>-->
     <select id="findAllPage" resultType="member">
         select
             *
         from
             member
+        <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != '' ">
+        where
+            ${searchType} like '%' || #{searchKeyword} || '%'
+        </if>
         order by
             reg_date desc
     </select>
 
+    <!--
+        where태그 하위 if구문이 하나라도 실행될때만 where절을 작성한다.
+        - where 다음에 and/or 연산자가 나오면 삭제 처리
+        - 여러개의 if구문 처리에 적합하다.
+    -->
     <select id="getTotalCount" resultType="_int">
         select
             count(*)
         from
             member
+        <where>
+            <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != '' ">
+                ${searchType} like '%' || #{searchKeyword} || '%'
+            </if>
+        </where>
     </select>
 
-    <select id="getTotalCount2" resultType="_int">
-        select
-            count(*)
-        from
-            member
-        where
-            ${searchType} like '%' || #{searchKeyword} || '%'
-    </select>
+<!--    <select id="getTotalCount2" resultType="_int">-->
+<!--        select-->
+<!--            count(*)-->
+<!--        from-->
+<!--            member-->
+<!--        where-->
+<!--            ${searchType} like '%' || #{searchKeyword} || '%'-->
+<!--    </select>-->
 </mapper>

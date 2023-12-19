@@ -1,7 +1,7 @@
 package com.sh.mvc.board.controller;
 
-import com.sh.mvc.board.model.entity.Board;
 import com.sh.mvc.board.model.service.BoardService;
+import com.sh.mvc.board.model.vo.BoardVo;
 import com.sh.mvc.common.HelloMvcUtils;
 
 import javax.servlet.ServletException;
@@ -32,7 +32,7 @@ public class BoardListServlet extends HttpServlet {
         param.put("limit", limit);
 
         // content영역 값 가져오기
-        List<Board> boards = boardService.findAll(param);
+        List<BoardVo> boards = boardService.findAll(param);
         req.setAttribute("boards", boards);
 
         // 페이지바

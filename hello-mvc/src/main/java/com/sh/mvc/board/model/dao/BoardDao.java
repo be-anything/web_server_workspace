@@ -1,6 +1,8 @@
 package com.sh.mvc.board.model.dao;
 
+import com.sh.mvc.board.model.entity.Attachment;
 import com.sh.mvc.board.model.entity.Board;
+import com.sh.mvc.board.model.vo.BoardVo;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
@@ -14,24 +16,25 @@ public class BoardDao {
 
     /**
      * paging 처리
+     *
      * @param session
      * @param param
      * @return
      */
 
-    public List<Board> findAll(SqlSession session, Map<String, Object> param) {
+    public List<BoardVo> findAll(SqlSession session, Map<String, Object> param) {
         int page = (int) param.get("page");
         int limit = (int) param.get("limit");
         int offset = (page - 1) * limit;
         RowBounds rowBounds = new RowBounds(offset, limit);
-        return session.selectList("board.findAll", null, rowBounds);
+        return session.selectList("board.findAll", param, rowBounds);
     }
 
     public int getTotalCount(SqlSession session) {
         return session.selectOne("board.getTotalCount");
     }
 
-    public Board findById(SqlSession session, long id) {
+    public BoardVo findById(SqlSession session, long id) {
         return session.selectOne("board.findById", id);
     }
 
@@ -45,5 +48,9 @@ public class BoardDao {
 
     public int deleteBoard(SqlSession session, long id) {
         return session.delete("board.deleteBoard", id);
+    }
+
+    public int insertAttachment(SqlSession session, Attachment attach) {
+        return session.insert("board.insertAttachment", attach);
     }
 }

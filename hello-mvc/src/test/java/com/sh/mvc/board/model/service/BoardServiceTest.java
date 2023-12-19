@@ -1,6 +1,7 @@
 package com.sh.mvc.board.model.service;
 
 import com.sh.mvc.board.model.entity.Board;
+import com.sh.mvc.board.model.vo.BoardVo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -52,7 +53,7 @@ public class BoardServiceTest {
         Map<String, Object> param = new HashMap<>();
         param.put("page", page);
         param.put("limit", limit);
-        List<Board> boards = boardService.findAll(param);
+        List<BoardVo> boards = boardService.findAll(param);
         System.out.println(boards);
         assertThat(boards).isNotNull();
         assertThat(boards.size()).isLessThanOrEqualTo(limit);
@@ -85,7 +86,10 @@ public class BoardServiceTest {
         String title = "오늘은 금요일";
         String memberId = "abcde";
         String content = "금요일 조아";
-        Board board = new Board(0, title, memberId, content, 0, null);
+        BoardVo board = new BoardVo();
+        board.setTitle(title);
+        board.setMemberId(memberId);
+        board.setContent(content);
 
         int result = boardService.insertBoard(board);
 
