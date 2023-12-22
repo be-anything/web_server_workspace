@@ -6,7 +6,8 @@
     <select id="findAll" resultType="boardVo">
         select
             b.*,
-            (select count(*) from attachment where board_id = b.id) attach_count
+            (select count(*) from attachment where board_id = b.id) attach_count,
+            (select count(*) from board_comment where board_id = b.id) comment_count
         from
             board b
         order by
@@ -27,14 +28,18 @@
     <select id="findById" resultMap="boardVoMap">
         select
             b.*,
+            m.name member_name,
             a.id attach_id,
             a.board_id,
             a.original_filename,
             a.renamed_filename,
             a.reg_date attach_reg_date
         from
-            board b left join attachment a
-            on b.id = a.board_id
+            board b
+                left join member m
+                    on b.member_id = m.id
+                left join attachment a
+                    on b.id = a.board_id
         where
             b.id = #{id}
     </select>
@@ -51,6 +56,14 @@
         <result column="content" property="content"/>
         <result column="read_count" property="readCount"/>
         <result column="reg_date" property="regDate"/>
+        <!--
+        association은 collection 위에다가 작성
+        - property는 필드, javaType은 자료형
+        -->
+        <association property="member" javaType="member">
+            <id column="member_id" property="id" />
+            <result column="member_name" property="name" />
+        </association>
         <collection property="attachments" ofType="attachment">
             <id column="attach_id" property="id"/>
             <result column="board_id" property="boardId"/>
@@ -59,7 +72,14 @@
             <result column="attach_reg_date" property="regDate"/>
         </collection>
     </resultMap>
-
+    <update id="updateBoardReadCount">
+        update
+            board
+        set
+            read_count = read_count + 1
+        where
+            id = #{id}
+    </update>
     <insert id="insertBoard">
         insert into
             board
@@ -92,9 +112,63 @@
         where
             id = #{id}
     </update>
+    <delete id="deleteAttachment">
+        delete from
+            attachment
+        where
+            id = #{id}
+    </delete>
     <delete id="deleteBoard">
         delete from
             board
+        where
+            id = #{id}
+    </delete>
+
+    <select id="findCommentByBoardId" resultType="boardComment">
+        select
+            *
+        from
+            board_comment
+        where
+            board_id = #{boardId}
+        start with
+            comment_level = 1
+        connect by
+            prior id = parent_comment_id
+        order siblings by
+            id
+    </select>
+    <insert id="insertBoardComment">
+        insert into
+            board_comment
+        values(
+            seq_board_comment_id.nextval,
+            #{boardId},
+            #{memberId},
+            #{content},
+            #{commentLevel},
+            #{parentCommentId},
+            default
+        )
+        <selectKey order="AFTER" resultType="_long" keyProperty="id">
+            select
+                seq_board_comment_id.currval
+            from
+                dual
+        </selectKey>
+    </insert>
+    <select id="findCommentById" resultType="boardComment">
+        select
+            *
+        from
+            board_comment
+        where
+            id = #{id}
+    </select>
+    <delete id="deleteBoardComment">
+        delete from
+            board_comment
         where
             id = #{id}
     </delete>

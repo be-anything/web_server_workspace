@@ -107,7 +107,7 @@ public class BoardServiceTest {
         String newTitle = "내일은 토요일";
         String newContent = "토요일은 더 조아";
 
-        Board board = boardService.findById(id);
+        BoardVo board = boardService.findById(id);
         board.setTitle(newTitle);
         board.setContent(newContent);
         int result = boardService.updateBoard(board);
