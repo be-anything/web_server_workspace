@@ -547,5 +547,3 @@ select * from board;
 
 
 
-
-

@@ -1,3 +1,6 @@
+/**
+ * 댓글 삭제
+ */
 document.querySelectorAll(".comment-del-btn").forEach((btn) => {
    btn.addEventListener('click', (e) => {
        const frm = e.target.parentElement.nextElementSibling;
@@ -7,7 +10,6 @@ document.querySelectorAll(".comment-del-btn").forEach((btn) => {
        }
    });
 });
-
 /**
  * 게시글 삭제
  */

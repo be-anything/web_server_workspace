@@ -92,9 +92,9 @@
                         </td>
                             <td class="px-6 py-4">
                                 <c:if test="${loginMember.role eq Role.A || loginMember.id eq comment.memberId}">
-                                <div class="flex">
-                                    <button class="comment-del-btn font-medium text-red-600 hover:underline ms-3">Remove</button>
-                                </div>
+                                    <div class="flex">
+                                        <button class="comment-del-btn font-medium text-red-600 hover:underline ms-3">Remove</button>
+                                    </div>
                                     <form name="submitCommentDeleteFrm" action="${pageContext.request.contextPath}/board/boardCommentDelete" method="post">
                                         <input type="hidden" name="id" value="${comment.id}">
                                         <input type="hidden" name="boardId" value="${board.id}">
@@ -130,9 +130,9 @@
                         </td>
                         <td class="px-6 py-4">
                             <c:if test="${loginMember.role eq Role.A || loginMember.id eq comment.memberId}">
-                            <div class="flex">
-                                <button class="comment-del-btn font-medium text-red-600 hover:underline ms-3">Remove</button>
-                            </div>
+                                <div class="flex">
+                                    <button class="comment-del-btn font-medium text-red-600 hover:underline ms-3">Remove</button>
+                                </div>
                                 <form name="submitCommentDeleteFrm" action="${pageContext.request.contextPath}/board/boardCommentDelete" method="post">
                                     <input type="hidden" name="id" value="${comment.id}">
                                     <input type="hidden" name="boardId" value="${board.id}">
@@ -147,5 +147,12 @@
         </table>
     </div>
 </div>
+<script>
+    // data-set을 사용하지 않으면 이렇게 전역에 선언해야 한다.
+    // 전역변수 선언은 항상 조심스럽게 하자!
+    <%--const contextPath = '${pageContext.request.contextPath}';--%>
+    <%--const boardId = '';--%>
+    <%--const loginMemberId = '';--%>
+</script>
 <script src="${pageContext.request.contextPath}/js/board/boardDetail.js"></script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
