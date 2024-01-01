@@ -15,6 +15,14 @@
   </properties>
 
   <dependencies>
+
+
+    <!--  json데이터 핸들링  -->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.10.1</version>
+    </dependency>
     <!-- 파일업로드 관련 의존-->
     <dependency>
       <groupId>commons-fileupload</groupId>
@@ -32,6 +40,12 @@
     <artifactId>tomcat-embed-core</artifactId>
     <version>9.0.83</version>
   </dependency>
+    <!-- websocket -->
+    <dependency>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-websocket</artifactId>
+      <version>9.0.83</version>
+    </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
@@ -42,6 +56,25 @@
       <artifactId>ojdbc8</artifactId>
       <version>23.2.0.0</version>
     </dependency>
+
+    <!-- Oracle Cloud Database ATP 추가의존 -->
+    <dependency>
+      <groupId>com.oracle.database.security</groupId>
+      <artifactId>oraclepki</artifactId>
+      <version>19.21.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.database.security</groupId>
+      <artifactId>osdt_cert</artifactId>
+      <version>19.21.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.database.security</groupId>
+      <artifactId>osdt_core</artifactId>
+      <version>19.21.0.0</version>
+    </dependency>
+
+
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>

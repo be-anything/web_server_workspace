@@ -1,3 +1,42 @@
+document.querySelector("#id").addEventListener('keyup', (e) => {
+    const value = e.target.value;
+    console.log(value);
+    const guideOk = document.querySelector(".guide.ok");
+    const guideError = document.querySelector(".guide.error");
+    const idValid = document.querySelector("#idValid");
+
+    if(/^\w{4,}$/.test(value)){
+       $.ajax({
+           url : `${contextPath}/member/checkIdDuplicate`,
+           data: {
+               id : value
+           },
+           success(response){
+               const {result} = response;
+               if(result){
+                   // 아이디가 사용가능한 경우
+                    guideError.classList.add('hidden');
+                    guideOk.classList.remove('hidden');
+                    idValid.value = 1;
+               }
+               else {
+                   // 아이디가 이미 사용중인 경우
+                   guideOk.classList.add('hidden');
+                   guideError.classList.remove('hidden');
+                   idValid.value = 0;
+               }
+           }
+       })
+    }
+    else {
+        // 다시쓰기하는 경우
+        guideOk.classList.add('hidden');
+        guideError.classList.add('hidden');
+        idValid.value = 0;
+    }
+});
+
+
 const hobbyEtc = document.querySelector("#hobby-etc");
 hobbyEtc.addEventListener('keyup', (e) => {
     // enter를 누른 경우, 입력완료로 간주한다.
@@ -35,10 +74,19 @@ document.memberRegisterFrm.addEventListener('submit', (e) => {
     const confirmPassword = document.querySelector("#confirm-password");
     const name = frm.name;
     const email = frm.email;
+    const idValid = frm.idValid;
+    console.log(idValid);
 
     // 아이디 - 영문자/숫자 4글자 이상
     if(!/^\w{4,}$/.test(id.value)) {
         alert("아이디는 영문자, 숫자 4글자 이상만 작성해주세요...");
+        e.preventDefault();
+        return;
+    }
+
+    // 아이디 중복검사 통과여부
+    if(idValid.value !== "1"){
+        alert("사용 가능한 아이디를 입력해주세요..");
         e.preventDefault();
         return;
     }

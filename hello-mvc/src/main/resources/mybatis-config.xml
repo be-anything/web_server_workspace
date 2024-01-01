@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties resource="datasource.properties"></properties>
+    <properties resource="datasource-local.properties"></properties>
 
     <settings>
         <!-- NULL데이터가 전달된 경우 NULL값으로 처리 -->
@@ -52,5 +52,7 @@
     <mappers>
         <mapper resource="mapper/member/member-mapper.xml"/>
         <mapper resource="mapper/board/board-mapper.xml"/>
+        <mapper resource="mapper/photo/photo-mapper.xml"/>
+        <mapper resource="mapper/notification/notification-mapper.xml"/>
     </mappers>
 </configuration>

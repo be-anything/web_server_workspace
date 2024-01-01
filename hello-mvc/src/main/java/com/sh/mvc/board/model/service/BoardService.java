@@ -128,8 +128,6 @@ public class BoardService {
                     result = boardDao.deleteAttachment(session, id);
                 }
             }
-
-
             // attachment 테이블 등록
             List<Attachment> attachments = board.getAttachments();
             // 첨부파일 리스트가 있다면, insert를 실행하도록 해야함

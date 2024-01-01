@@ -5,7 +5,6 @@ import com.sh.mvc.member.model.entity.Role;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,7 @@ import java.io.IOException;
  * - 검사할 url : /admin/*
  * - 인증확인 및 로그인된 사용자의 권한 검사(Role.A)
  */
-@WebFilter("/admin/*")
+//@WebFilter("/admin/*")
 public class AuthorizationFilter extends HttpFilter {
 
     @Override
