@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+    <select id="loginMember" resultMap="memberMap">
+        select
+            *
+        from
+            tb_member
+        where
+            member_id = #{memberId}
+    </select>
+    <resultMap id="memberMap" type="Member">
+        <id column="MEMBER_ID" property="memberId"/>
+        <result column="MEMBER_PWD" property="memberPwd"/>
+        <result column="MEMBER_NM" property="memberName"/>
+        <result column="MEMBER_ENROLL_DT" property="memberEnrollDate"/>
+    </resultMap>
+</mapper>

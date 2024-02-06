@@ -63,7 +63,8 @@ public class BoardVo extends Board {
         this.attachments = attachments;
     }
 
-    public void setValue(String name, String value) {
+    public void
+    setValue(String name, String value) {
         switch (name) {
             case "id" : this.setId(Long.parseLong(value)); break;
             case "title" : this.setTitle(value); break;

@@ -14,7 +14,8 @@ document.celebRegisterFrm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const frm = e.target;
-    const frmData = new FormData(frm); // inpur태그로 사용자입력값 모두 등록
+    const frmData = new FormData(frm); // input 태그로 사용자입력값 모두 등록
+    console.log(frmData)
     $.ajax({
         url: `${contextPath}/json/celeb/register`,
         method: 'post',

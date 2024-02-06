@@ -1,4 +1,4 @@
-package com.sh.mvc.common;
+package com.ncs.test.common;
 
 
 import org.apache.ibatis.io.Resources;
@@ -18,7 +18,7 @@ public class SqlSessionTemplate {
     private static SqlSessionFactory factory;
 
     static {
-        String resource = "configs/mybatis-config.xml";
+        String resource = "mybatis-config.xml"; // src/main/resources/mybatis-config.xml
 
         try(InputStream is = Resources.getResourceAsStream(resource)) {
             SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();

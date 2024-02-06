@@ -53,7 +53,7 @@
                 </td>
                 <td class="px-6 py-4">${board.memberId}</td>
                 <td class="px-6 py-4">
-                <fmt:parseDate value="${board.regDate}" pattern="yyyy-MM-dd'T'HH:mm" var="regDate"/>
+                    <fmt:parseDate value="${board.regDate}" pattern="yyyy-MM-dd'T'HH:mm" var="regDate"/>
                     <fmt:formatDate value="${regDate}" pattern="yy/MM/dd"/>
                 </td>
                 <td class="px-6 py-4">
